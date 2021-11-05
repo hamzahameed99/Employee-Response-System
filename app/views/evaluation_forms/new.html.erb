@@ -1,0 +1,62 @@
+<h2>Fill out the form</h2>
+
+<%= form_with model: @evaluation_form, url: evaluation_forms_path, method: :post, local: true   do |f|%>
+
+  <div class="field form-group">
+    <%= f.label "Quality - How much work is done according to procedures" %>
+    <%= f.text_field :answer1, class:"form-control"%>
+  </div><br>
+  <div class="field form-group">
+    <%= f.label "Productivity - Productivity of the work done." %>
+    <%= f.text_field :answer2, class:"form-control"%>
+  </div><br>
+  <div class="field form-group">
+    <%= f.label "Job Knowledge - " %>
+    <%= f.text_field :answer3, class:"form-control"%>
+  </div><br>
+  <div class="field form-group">
+    <%= f.label "Interpersonal Relationships " %>
+    <%= f.text_field :answer4, class:"form-control"%>
+  </div><br>
+  <div class="field form-group">
+    <%= f.label "Attendance " %>
+    <%= f.text_field :answer5, class:"form-control"%>
+  </div><br>
+  <div class="field form-group">
+    <%= f.label "Initiative/ Creativity - " %>
+    <%= f.text_field :answer6, class:"form-control"%>
+  </div><br>
+  <div class="field form-group">
+    <%= f.label "Adherence to Policy - " %>
+    <%= f.text_field :answer7, class:"form-control"%>
+  </div><br>
+  <div class="field form-group">
+    <%= f.label "Lead (if applicable)- " %>
+    <%= f.text_field :answer8, class:"form-control"%>
+  </div><br>
+  <div class="field form-group">
+    <%= f.label "Accomplishments or new abilities demonstrated since last review?" %>
+    <%= f.text_field :answer9, class:"form-control"%>
+  </div><br>
+  <div class="field form-group">
+    <%= f.label "Specific areas of needed improvement and goals set for next review:" %>
+    <%= f.text_field :answer10, class:"form-control"%>
+  </div><br>
+
+  <div class="field form-group">
+    <%= f.label "Submit by" %>
+    <%= f.text_field :submit_by, value: current_user.name, class:"form-control"%>
+    <%# f.text_field :submit_by, class:"form-control"%>
+  </div><br>
+
+  <div class="field form-group">
+    <%= f.text_field :user_id, value: @user.id, class:"form-control", type: "hidden"%>
+  </div><br>
+
+
+    <div class="actions">
+      <%= f.submit "Submit", class: "btn btn-primary" %>
+    </div>
+
+<% end %>
+

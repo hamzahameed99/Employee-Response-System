@@ -1,7 +1,43 @@
 Rails.application.routes.draw do
 
+  get 'evaluation_forms/index'
+  get 'evaluation_forms/show'
+  #get 'questions/index'
+  #get 'questions/show'
+  #get 'custom/index'
   devise_for :users
+
   get 'home/index'
+
+  #edititng the user
+  get 'home/:id/edit', to: 'home#edit', as: 'edit'
+  patch 'home/:id', to: 'home#update', as: 'update'
+
+  #delete user
+  delete "home/:id" => "home#destroy", as: :user
+
+  #signup for new user
+  get 'signup', to: 'home#new'
+  post 'signup', to:'home#create'
+
+  #move to question page
+  get 'index', to: 'questions#index'
+
+  #add questions
+  get 'add_question', to: 'questions#new'
+  post 'add_question', to: 'questions#create'
+  get 'show', to: 'questions#show'
+
+  #delete question
+  delete "questions/:id" => "questions#destroy", as: :question
+
+
+  #add evaluation_forms
+  resources :evaluation_forms
+
+  delete 'evaluation_froms/:id' => 'evaluation_forms#destroy', as:  :evaluation
+
+  #root path
   root to: "home#index"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

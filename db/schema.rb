@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_29_115556) do
+ActiveRecord::Schema.define(version: 2021_11_05_133644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 2021_10_29_115556) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "users_id"
     t.bigint "user_id", null: false
+    t.string "answer1"
+    t.string "answer2"
+    t.string "answer3"
+    t.string "answer4"
+    t.string "answer5"
+    t.string "answer6"
+    t.string "answer7"
+    t.string "answer8"
+    t.string "answer9"
+    t.string "answer10"
     t.index ["user_id"], name: "index_evaluation_forms_on_user_id"
     t.index ["users_id"], name: "index_evaluation_forms_on_users_id"
   end
@@ -31,15 +41,12 @@ ActiveRecord::Schema.define(version: 2021_10_29_115556) do
     t.text "answer"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "evaluation_forms_id", null: false
-    t.index ["evaluation_forms_id"], name: "index_questions_on_evaluation_forms_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "cnic"
     t.string "email"
-    t.string "join_date"
     t.string "role"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -47,10 +54,11 @@ ActiveRecord::Schema.define(version: 2021_10_29_115556) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.date "join_date"
+    t.integer "managerid"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "evaluation_forms", "users"
-  add_foreign_key "questions", "evaluation_forms", column: "evaluation_forms_id"
 end

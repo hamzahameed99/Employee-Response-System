@@ -1,34 +1,32 @@
-<h2>Sign up</h2>
+<h2>Edit User</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<%= form_with model: @user, url: update_path(@user) do |f| %>
 
 
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
+    <%= f.label :name %><br/>
+    <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :cnic %><br />
+    <%= f.label :cnic %><br/>
     <%= f.text_field :cnic, autofocus: true %>
   </div>
-
   <div class="field">
     <%= f.label :email %><br/>
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
   <div class="field">
-    <%= f.label :join_date %><br />
-    <%= f.date_select :join_date, autofocus: true%>
+    <%= f.label :joining_date %><br/>
+    <%= f.date_select :join_date, autofocus: true %>
   </div>
   <div class="field">
-    <%= f.label :role %><br />
-    <%= f.select(:role, [['HR']] ) %>
+    <%= f.label :role %><br/>
+    <%= f.select(:role, [['Manager'], ['Employee']] ) %>
   </div>
   <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
   </div>
@@ -39,8 +37,6 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Edit" %>
   </div>
 <% end %>
-
-<%= render "devise/shared/links" %>

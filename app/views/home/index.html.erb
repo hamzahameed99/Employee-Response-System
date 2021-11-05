@@ -1,26 +1,80 @@
-<br/>
-<br/>
-<br/>
-<h1>Evaluation Review System</h1>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<% if user_signed_in? &&  current_user.role == "HR"%>
 
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <%= link_to "Sign In", new_user_session_path, class:"nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "Sign Up", new_user_registration_path, class:"nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "Sign Out", destroy_user_session_path, method: ':delete' %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "Edit Profile", edit_user_registration_path, class:"nav-link" %>
-      </li>
-    </ul>
+  <h1>Employee List</h1>
+
+  <table class="table table-striped table-hover table-bordered">
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">User ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">CNIC</th>
+      <th scope="col">Email</th>
+      <th scope="col">Joinig Date</th>
+      <th scope="col">Role</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @users.each do |user| %>
+
+      <% if user.role == "Employee" %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.name %></td>
+          <td><%= user.cnic %></td>
+          <td><%= user.email %></td>
+          <td><%= user.join_date %></td>
+          <td><%= user.role %></td>
+        </tr>
+      <% end %>
+    <% end %>
+    </tbody>
+  </table>
+
+  <h1>Manager List</h1>
+
+  <table class="table table-striped table-hover table-bordered">
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">User ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">CNIC</th>
+      <th scope="col">Email</th>
+      <th scope="col">Joinig Date</th>
+      <th scope="col">Role</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @users.each do |user| %>
+
+      <% if user.role == "Manager" %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.name %></td>
+          <td><%= user.cnic %></td>
+          <td><%= user.email %></td>
+          <td><%= user.join_date %></td>
+        </tr>
+      <% end %>
+    <% end %>
+    </tbody>
+  </table>
+
+  <div class="container px-4 py-5" id="featured-3">
+    <h2 class="pb-2 border-bottom">HR Actions</h2>
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+      <div class="feature col">
+
+        <h2>Create Employee</h2>
+        <p>HR can create new employee and add their details upon joinig.</p>
+        <%= link_to 'Add new employee', signup_path, class:"btn btn-primary" %>&nbsp;
+        <%= link_to "View all responses", evaluation_forms_index_path, class:"btn btn-primary"  %>
+      </div>
+
+    </div>
   </div>
-</nav>
+<%end %>
 
 
 
