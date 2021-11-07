@@ -26,22 +26,18 @@ class HomeController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update(user_params)
-      flash[:success] = "Record updated successfully!"
-      redirect_to root_path
+      redirect_to home_index_path
     else
-      flash.now[:error] = "To-do item update failed"
       render :edit
     end
   end
 
   def destroy
-    if current_user.role == "HR"
-      User.find(params[:id]).destroy
-      redirect_to root_path
-    end
+    User.find(params[:id]).destroy
+    redirect_to home_index_path
   end
   def show
-    #@user = User.find(params[:id])
+
   end
 
   private
