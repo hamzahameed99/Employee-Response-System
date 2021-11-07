@@ -2,9 +2,6 @@ Rails.application.routes.draw do
 
   get 'evaluation_forms/index'
   get 'evaluation_forms/show'
-  #get 'questions/index'
-  #get 'questions/show'
-  #get 'custom/index'
   devise_for :users
 
   get 'home/index'
@@ -20,21 +17,10 @@ Rails.application.routes.draw do
   get 'signup', to: 'home#new'
   post 'signup', to:'home#create'
 
-  #move to question page
-  get 'index', to: 'questions#index'
-
-  #add questions
-  get 'add_question', to: 'questions#new'
-  post 'add_question', to: 'questions#create'
-  get 'show', to: 'questions#show'
-
-  #delete question
-  delete "questions/:id" => "questions#destroy", as: :question
-
-
   #add evaluation_forms
   resources :evaluation_forms
 
+  #delete evaluation form
   delete 'evaluation_froms/:id' => 'evaluation_forms#destroy', as:  :evaluation
 
   #root path

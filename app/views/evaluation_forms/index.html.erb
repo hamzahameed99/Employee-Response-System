@@ -14,9 +14,7 @@
       <tr>
         <td><%= ef.comment %></td>
         <td><%= ef.submit_by %></td>
-
         <td><%= link_to "Delete",ef, method: :delete,data: { confirm: "Really delete this user?" }, class: "btn btn-danger" %></td>
-
         <td><%= link_to "Open form", evaluation_forms_show_path(id: ef), class: "btn btn-danger" %></td>
       </tr>
     <% end %>
@@ -45,4 +43,4 @@
   </table>
   <% end %>
 
-<%= link_to 'Back',  new_evaluation_form_path, class:"nav-link" %>
+<%= link_to 'Back',  home_index_path, class:"nav-link" %>

@@ -6,7 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :evaluation_form
 
-  has_many :employees, class_name: "User", foreign_key: "managerid"
+  has_many :employees, class_name: "User", foreign_key: "manager_id"
   belongs_to :manager, class_name: "User", optional: true
 
 
