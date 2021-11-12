@@ -1,0 +1,57 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<div class="container">
+  <div class="row mgTp">
+    <%= form_with model: @user, url: signup_path do |f| %>
+
+      <h3 class="title">Create new user</h3>
+      <hr class="divisor">
+
+      <div class="field form-group">
+        <%= f.label :name %><br />
+        <%= f.text_field :name, autofocus: true, class: "form-control", required: true %>
+      </div>
+
+      <div class="field form-group">
+        <%= f.label :cnic %><br />
+        <%= f.text_field :cnic, autofocus: true, class: "form-control", required: true%>
+      </div>
+
+      <div class="field form-group">
+        <%= f.label :email %><br/>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" , class: "form-control", required: true%>
+      </div>
+      <div class="field form-group">
+        <%= f.label :join_date %><br />
+        <%= f.date_select :join_date, autofocus: true, class: "form-select form-control"%>
+      </div>
+      <div class="field form-group">
+        <%= f.label :role %><br/>
+        <%= f.select(:role, [['Manager'],['Employee']] ,{} ,{class:"form-select form-control "}) %>
+      </div>
+      <div class="field">
+        <%= f.label :"Assign manager" %><br/>
+        <%= f.collection_select :manager_id, User.where(role: "Manager"), :id, :name, prompt: true %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :password %>
+        <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+      </div>
+
+      <div class="field form-group">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Create User", class: "btn btn-primary topBtn" %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

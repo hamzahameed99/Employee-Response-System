@@ -1,4 +1,5 @@
-class HomeController < ApplicationController
+class UsersController < ApplicationController
+  #before_action :correct_user, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @users = User.all
@@ -11,7 +12,7 @@ class HomeController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to home_index_path
+      redirect_to users_index_path
     else
       render :new
     end
@@ -24,9 +25,8 @@ class HomeController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-
     if @user.update(user_params)
-      redirect_to home_index_path
+      redirect_to users_index_path
     else
       render :edit
     end
@@ -34,11 +34,13 @@ class HomeController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy
-    redirect_to home_index_path
+    redirect_to users_index_path
   end
-  def show
 
-  end
+  # def correct_user
+  #   @user = current_user.User.find_by(role: "HR")
+  #   redirect_to users_index_path, notice: "Not accessible!" if @user.nil?
+  # end
 
   private
 

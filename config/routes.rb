@@ -1,21 +1,22 @@
 Rails.application.routes.draw do
 
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   get 'evaluation_forms/index'
   get 'evaluation_forms/show'
   devise_for :users
 
-  get 'home/index'
+  get 'users/index'
 
   #edititng the user
-  get 'home/:id/edit', to: 'home#edit', as: 'edit'
-  patch 'home/:id', to: 'home#update', as: 'update'
+  get 'users/:id/edit', to: 'users#edit', as: 'edit'
+  patch 'users/:id', to: 'users#update', as: 'update'
 
   #delete user
-  delete "home/:id" => "home#destroy", as: :user
+  delete "users/:id" => "users#destroy", as: :user
 
-  #signup for new user
-  get 'signup', to: 'home#new'
-  post 'signup', to:'home#create'
+  #Create user
+  get 'signup', to: 'users#new'
+  post 'signup', to:'users#create'
 
   #add evaluation_forms
   resources :evaluation_forms
@@ -24,6 +25,6 @@ Rails.application.routes.draw do
   delete 'evaluation_froms/:id' => 'evaluation_forms#destroy', as:  :evaluation
 
   #root path
-  root to: "home#index"
+  root to: "users#index"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

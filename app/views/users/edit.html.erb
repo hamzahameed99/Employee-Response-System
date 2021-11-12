@@ -1,0 +1,46 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<% if user_signed_in? %>
+<div class="container">
+  <div class="row mgTp">
+    <%= form_with model: @user, url: update_path(@user) do |f| %>
+
+      <h3 class="title">Edit User</h3>
+      <hr class="divisor">
+
+      <div class="field  form-group">
+        <%= f.label :name %><br/>
+        <%= f.text_field :name, class: "form-control"  %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :cnic %><br/>
+        <%= f.text_field :cnic, autofocus: true, class: "form-control"  %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :email %><br/>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control"  %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :joining_date %><br/>
+        <%= f.date_select :join_date, autofocus: true , class: "form-control" %>
+      </div>
+
+      <% @findUser = User.find_by_id(params[:id])%>
+      <% if @findUser.role == "Employee"  %>
+        <div class="field">
+          <%= f.label :"Assign manager" %><br/>
+          <%= f.collection_select :manager_id, User.where(role: "Manager"), :id, :name, prompt: true%>
+        </div>
+      <%end %>
+
+      <div class="actions">
+        <%= f.submit "Edit", class: "btn btn-primary topBtn" %>
+      </div>
+
+      <%end %>
+
+  </div>
+</div>
+<%end %>

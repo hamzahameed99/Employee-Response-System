@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_07_121939) do
+ActiveRecord::Schema.define(version: 2021_11_11_115242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,16 +22,17 @@ ActiveRecord::Schema.define(version: 2021_11_07_121939) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "users_id"
     t.bigint "user_id", null: false
-    t.string "answer1"
-    t.string "answer2"
-    t.string "answer3"
-    t.string "answer4"
-    t.string "answer5"
-    t.string "answer6"
-    t.string "answer7"
-    t.string "answer8"
-    t.string "answer9"
-    t.string "answer10"
+    t.integer "answer1"
+    t.integer "answer2"
+    t.integer "answer3"
+    t.integer "answer4"
+    t.integer "answer5"
+    t.integer "answer6"
+    t.integer "answer7"
+    t.integer "answer8"
+    t.integer "answer9"
+    t.integer "answer10"
+    t.integer "score"
     t.index ["user_id"], name: "index_evaluation_forms_on_user_id"
     t.index ["users_id"], name: "index_evaluation_forms_on_users_id"
   end

@@ -1,46 +1,55 @@
-<h2>Sign up</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<div class="container">
+  <div class="row mgTp">
+<%= form_for(resource, class:"col-md-6 offset-md-3", as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
+  <h3 class="title">Sign up</h3>
+  <hr class="divisor">
 
-
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
-  </div>
-  <div class="field">
-    <%= f.label :cnic %><br />
-    <%= f.text_field :cnic, autofocus: true %>
+    <%= f.text_field :name, autofocus: true, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
+    <%= f.label :cnic %><br />
+    <%= f.text_field :cnic, autofocus: true, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
     <%= f.label :email %><br/>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" , class: "form-control"%>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :join_date %><br />
-    <%= f.date_select :join_date, autofocus: true%>
+    <%= f.date_select :join_date, autofocus: true, class: "form-control"%>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :role %><br />
     <%= f.select(:role, [['HR']] ) %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up", class: "btn btn-primary topBtn" %>
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+  </div>
+</div>
+
+
