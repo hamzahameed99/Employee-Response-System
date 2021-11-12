@@ -18,6 +18,7 @@ class EvaluationFormsController < ApplicationController
     if current_user.role != "HR"
        @total = Integer(params[:evaluation_form]["answer1"])+Integer(params[:evaluation_form]["answer2"])+Integer(params[:evaluation_form]["answer3"])+Integer(params[:evaluation_form]["answer4"])+Integer(params[:evaluation_form]["answer5"])+Integer(params[:evaluation_form]["answer6"])+Integer(params[:evaluation_form]["answer7"])+Integer(params[:evaluation_form]["answer8"])+Integer(params[:evaluation_form]["answer9"])+Integer(params[:evaluation_form]["answer10"])
     end
+
     @user = current_user
     @evaluation_form = EvaluationForm.new(user_params.merge(score: @total))
     if @evaluation_form.save

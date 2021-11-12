@@ -7,7 +7,7 @@ namespace :sample do
       join_date = emp.join_date
       add_days = join_date + 6.months
 
-      if Date.today <= add_days
+      if Date.today >= add_days
         puts "True"
         EvaluationFormMailer.inform_employee(emp).deliver
       end

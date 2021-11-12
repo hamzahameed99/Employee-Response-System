@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  #before_action :correct_user, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @users = User.all
@@ -37,10 +36,6 @@ class UsersController < ApplicationController
     redirect_to users_index_path
   end
 
-  # def correct_user
-  #   @user = current_user.User.find_by(role: "HR")
-  #   redirect_to users_index_path, notice: "Not accessible!" if @user.nil?
-  # end
 
   private
 
