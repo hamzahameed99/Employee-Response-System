@@ -1,21 +1,15 @@
 <% if current_user.role == "HR" %>
+
  <div class="container">
-  <%= form_with model: @evaluation_form, url: evaluation_forms_path, method: :post, local: true   do |f|%>
+  <%= form_with model: @evaluation_form, url: evaluation_forms_path, method: :post, local: true do |f|%>
 
     <!--Employee-->
     <table class="table table-striped table-hover">
       <thead class="thead-dark ">
       <tr>
-        <th>Answer 1</th>
-        <th>Answer 2</th>
-        <th>Answer 3</th>
-        <th>Answer 4</th>
-        <th>Answer 5</th>
-        <th>Answer 6</th>
-        <th>Answer 7</th>
-        <th>Answer 8</th>
-        <th>Answer 9</th>
-        <th>Answer 10</th>
+        <% @question_array.each do |question| %>
+        <th><%= question %></th>
+          <% end %>
         <th>Score</th>
       </tr>
       </thead>
@@ -24,35 +18,24 @@
       <% @formEmp = EvaluationForm.find_by_id(params[:emp_id])%>
       <h3>Employee form</h3>
       <tr>
-        <td><%= @formEmp.answer1 %></td>
-        <td><%= @formEmp.answer2 %></td>
-        <td><%= @formEmp.answer3 %></td>
-        <td><%= @formEmp.answer4 %></td>
-        <td><%= @formEmp.answer5 %></td>
-        <td><%= @formEmp.answer6 %></td>
-        <td><%= @formEmp.answer7 %></td>
-        <td><%= @formEmp.answer8 %></td>
-        <td><%= @formEmp.answer9 %></td>
-        <td><%= @formEmp.answer10 %></td>
+        <%  answers = @formEmp.responses.split(",") %>
+          <% answers.each do |answer| %>
+          <td><%= answer %></td>
+        <% end %>
         <td><%= @formEmp.score %></td>
       </tr>
 
       </tbody>
     </table>
     <!--Manager-->
+
+
     <table class="table table-striped table-hover">
       <thead class="thead-dark ">
       <tr>
-        <th>Answer 1</th>
-        <th>Answer 2</th>
-        <th>Answer 3</th>
-        <th>Answer 4</th>
-        <th>Answer 5</th>
-        <th>Answer 6</th>
-        <th>Answer 7</th>
-        <th>Answer 8</th>
-        <th>Answer 9</th>
-        <th>Answer 10</th>
+        <% @question_array.each do |question| %>
+          <th><%= question %></th>
+        <% end %>
         <th>Score</th>
       </tr>
       </thead>
@@ -62,24 +45,20 @@
       <h3>Manager Form</h3>
 
       <tr>
-        <td><%= @formMan.answer1 %></td>
-        <td><%= @formMan.answer2 %></td>
-        <td><%= @formMan.answer3 %></td>
-        <td><%= @formMan.answer4 %></td>
-        <td><%= @formMan.answer5 %></td>
-        <td><%= @formMan.answer6 %></td>
-        <td><%= @formMan.answer7 %></td>
-        <td><%= @formMan.answer8 %></td>
-        <td><%= @formMan.answer9 %></td>
-        <td><%= @formMan.answer10 %></td>
+        <%  answers = @formMan.responses.split(",") %>
+          <% answers.each do |answer| %>
+          <td><%= answer %></td>
+        <% end %>
         <td><%= @formMan.score %></td>
       </tr>
 
       </tbody>
     </table>
 
+    <% @user = User.find_by_id(params[:user_id]) %>
     <!--end-->
 
+     <!--HR-->
     <div class="field form-group">
       <%= f.text_field :submit_by, value: current_user.name, class:"form-control", type: "hidden"%>
     </div><br>
@@ -109,46 +88,17 @@
 
   <%= form_with model: @evaluation_form, url: evaluation_forms_path, method: :post, local: true   do |f|%>
 
-    <div class="field form-group">
-      <%= f.label "Quality - How much work is done according to procedures" %>
-      <%= f.select(:answer1, [['1 - Unsatisfactory',1],['2 - Need Improvement',2],['3 - Average',3],['4 - Good',4],['5 - Excellent',5]],{} ,{class:"form-select form-control "})%>
-    </div><br>
-    <div class="field form-group">
-      <%= f.label "Productivity - Productivity of the work done." %>
-      <%= f.select(:answer2, [['1 - Unsatisfactory',1],['2 - Need Improvement',2],['3 - Average',3],['4 - Good',4],['5 - Excellent',5]],{} ,{class:"form-select form-control"})%>
-    </div><br>
-    <div class="field form-group">
-      <%= f.label "Job Knowledge - " %>
-      <%= f.select(:answer3, [['1 - Unsatisfactory',1],['2 - Need Improvement',2],['3 - Average',3],['4 - Good',4],['5 - Excellent',5]],{} ,{class:"form-select form-control"})%>
-    </div><br>
-    <div class="field form-group">
-      <%= f.label "Interpersonal Relationships " %>
-      <%= f.select(:answer4, [['1 - Unsatisfactory',1],['2 - Need Improvement',2],['3 - Average',3],['4 - Good',4],['5 - Excellent',5]],{} ,{class:"form-select form-control"})%>
-    </div><br>
-    <div class="field form-group">
-      <%= f.label "Attendance " %>
-      <%= f.select(:answer5, [['1 - Unsatisfactory',1],['2 - Need Improvement',2],['3 - Average',3],['4 - Good',4],['5 - Excellent',5]],{} ,{class:"form-select form-control"})%>
-    </div><br>
-    <div class="field form-group">
-      <%= f.label "Initiative/ Creativity - " %>
-      <%= f.select(:answer6, [['1 - Unsatisfactory',1],['2 - Need Improvement',2],['3 - Average',3],['4 - Good',4],['5 - Excellent',5]],{} ,{class:"form-select form-control"})%>
-    </div><br>
-    <div class="field form-group">
-      <%= f.label "Adherence to Policy - " %>
-      <%= f.select(:answer7, [['1 - Unsatisfactory',1],['2 - Need Improvement',2],['3 - Average',3],['4 - Good',4],['5 - Excellent',5]],{} ,{class:"form-select form-control"})%>
-    </div><br>
-    <div class="field form-group">
-      <%= f.label "Lead (if applicable)- " %>
-      <%= f.select(:answer8, [['1 - Unsatisfactory',1],['2 - Need Improvement',2],['3 - Average',3],['4 - Good',4],['5 - Excellent',5]],{} ,{class:"form-select form-control"})%>
-    </div><br>
-    <div class="field form-group">
-      <%= f.label "Accomplishments or new abilities demonstrated since last review?" %>
-      <%= f.select(:answer9, [['1 - Unsatisfactory',1],['2 - Need Improvement',2],['3 - Average',3],['4 - Good',4],['5 - Excellent',5]],{} ,{class:"form-select form-control"})%>
-    </div><br>
-    <div class="field form-group">
-      <%= f.label "Specific areas of needed improvement and goals set for next review:" %>
-      <%= f.select(:answer10, [['1 - Unsatisfactory',1],['2 - Need Improvement',2],['3 - Average',3],['4 - Good',4],['5 - Excellent',5]],{} ,{class:"form-select form-control"})%>
-    </div><br>
+    <% @question_array.each_with_index do |question,index| %>
+      <%= f.label :question ,value: question%><br>
+      <%= f.select(:"answer-#{index}", [['1 - Unsatisfactory',1],['2 - Need Improvement',2],['3 - Average',3],['4 - Good',4],['5 - Excellent',5]],{} ,{class:"form-select form-control"})%>
+
+    <%end %>
+
+
+<!--    <div class="field form-group">-->
+      <%#= f.label "Specific areas of needed improvement and goals set for next review:" %>
+      <%#= f.select(:answer10, [['1 - Unsatisfactory',1],['2 - Need Improvement',2],['3 - Average',3],['4 - Good',4],['5 - Excellent',5]],{} ,{class:"form-select form-control"})%>
+<!--    </div><br>-->
 
     <div class="field form-group">
       <%= f.text_field :submit_by, value: current_user.name, class:"form-control", type: "hidden"%>

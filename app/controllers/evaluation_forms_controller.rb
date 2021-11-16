@@ -5,25 +5,41 @@ class EvaluationFormsController < ApplicationController
   end
 
   def show
+    @question_array = Query.pluck(:question)
     @evaluation_form = EvaluationForm.find(params[:id])
   end
 
   def new
+    @question_array = Query.pluck(:question)
+
     @evaluation_form = EvaluationForm.new
     @user = current_user
-
   end
 
   def create
+
+    @question_array = Query.pluck(:question)
+    final_answer = ""
+    @question_array.each_with_index do |q,i|
+      final_answer += String(params[:evaluation_form]["answer-#{i}"]) + ","
+    end
+
+
+
     if current_user.role != "HR"
-       @total = Integer(params[:evaluation_form]["answer1"])+Integer(params[:evaluation_form]["answer2"])+Integer(params[:evaluation_form]["answer3"])+Integer(params[:evaluation_form]["answer4"])+Integer(params[:evaluation_form]["answer5"])+Integer(params[:evaluation_form]["answer6"])+Integer(params[:evaluation_form]["answer7"])+Integer(params[:evaluation_form]["answer8"])+Integer(params[:evaluation_form]["answer9"])+Integer(params[:evaluation_form]["answer10"])
+      total = 0
+      @question_array.each_with_index do |q,i|
+        total += Integer(params[:evaluation_form]["answer-#{i}"])
+      end
     end
 
     @user = current_user
-    @evaluation_form = EvaluationForm.new(user_params.merge(score: @total))
+
+    @evaluation_form = EvaluationForm.new(user_params.merge(responses: final_answer, score: total))
     if @evaluation_form.save
       if current_user.role == "Employee"
         current_manager = User.find(current_user.manager_id)
+
         EvaluationFormMailer.evaluation_form_created(current_manager).deliver_now
         redirect_to users_index_path
 
@@ -50,6 +66,6 @@ class EvaluationFormsController < ApplicationController
   private
 
   def user_params
-    params.require(:evaluation_form).permit(:answer1,:answer2,:answer3,:answer4,:answer5,:answer6,:answer7,:answer8,:answer9,:answer10, :submit_by, :comment, :user_id)
+    params.require(:evaluation_form).permit( :submit_by, :comment, :user_id)
   end
 end

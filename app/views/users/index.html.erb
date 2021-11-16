@@ -107,6 +107,14 @@
       <th colspan="5"></th>
     </tr>
     </thead>
+    <% @manager = User.find_by_id(current_user.manager_id)%>
+    <% @userHR = User.find_by(role: "HR") %>
+
+    <% @formEmp = EvaluationForm.find_by(user_id: current_user.id, submit_by: current_user.name) %>
+    <% @formMan = EvaluationForm.find_by(user_id: current_user.id, submit_by: @manager.name) %>
+    <% @formHR = EvaluationForm.find_by(user_id: current_user.id, submit_by: @userHR.name) %>
+
+
     <tbody>
     <tr>
       <td><%= current_user.name %></td>
@@ -114,11 +122,17 @@
       <td><%= current_user.email %></td>
       <td><%= current_user.join_date %></td>
       <td><%= current_user.role %></td>
-      <%if current_user.evaluation_form.present? %>
-        <td><%= 'Form has filled' %></td>
+
+      <%if @formHR.present? %>
+        <td><%= link_to 'View your report', evaluation_forms_show_path(id: current_user.id, emp_id: @formEmp.id, m_id: @formMan, hr_id: @formHR ), class: "btn btn-primary" %></td>
+      <%elsif @formMan.present? %>
+        <td><%= 'Pending HR Remarks' %></td>
+      <%elsif current_user.evaluation_form.present? %>
+        <td><%= 'Waiting manager response' %></td>
       <%else %>
         <td><%= link_to 'Fill out evaluation forms', new_evaluation_form_path , class:"btn btn-primary" %></td>
       <%end %>
+
     </tr>
     </tbody>
   </table>
@@ -157,6 +171,7 @@
       <th>Joining Date</th>
       <th>Role</th>
       <th>Employee Form Status</th>
+      <th>Show Employee Form</th>
       <th colspan="5"></th>
     </tr>
     </thead>
@@ -171,11 +186,19 @@
           <td><%= user.join_date %></td>
           <td><%= user.role %></td>
 
+          <% @formEmp = EvaluationForm.find_by(user_id: user.id, submit_by: user.name) %>
           <% @form = EvaluationForm.find_by(user_id: user.id, submit_by: current_user.name) %>
+
           <% if @form.present? %>
             <td><%= 'Form submitted by manager' %></td>
           <%elsif user.evaluation_form.present? %>
             <td><%= link_to 'Fill out Evaluation Form', new_evaluation_form_path(user_id: user), class:"btn btn-primary" %></td>
+          <% else %>
+            <td><%= 'Form not submitted by employee' %></td>
+          <%end %>
+
+          <% if @formEmp.present? %>
+            <td><%= link_to 'View employee form', evaluation_forms_show_path(id: @formEmp), class: "btn btn-primary" %></td>
           <% else %>
             <td><%= 'Form not submitted by employee' %></td>
           <%end %>

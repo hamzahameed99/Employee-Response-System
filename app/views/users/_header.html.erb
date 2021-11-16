@@ -35,6 +35,12 @@
             <%= link_to "View all responses", evaluation_forms_index_path, class:"nav-link" %>
           </li>
           <li class="nav-item">
+            <%= link_to "Add questions",new_query_path, class:"nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Show questions",query_index_path, class:"nav-link" %>
+          </li>
+          <li class="nav-item">
             <%= link_to "Rails Admin", rails_admin_path, class:"nav-link" %>
           </li>
         <% end %>

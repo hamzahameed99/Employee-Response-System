@@ -22,6 +22,6 @@ set :output, "log/cron.log"
 set :environment, "development"
 
 
-# every 1.minute do
+# every 1.day do
 #   rake 'sample:test'
 # end

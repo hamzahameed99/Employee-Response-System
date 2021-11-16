@@ -1,0 +1,23 @@
+<% if user_signed_in?  && current_user.role == "HR"%>
+  <h1>Questions</h1>
+  <table class="table table-hover table-striped">
+    <thead class="table-dark">
+    <tr>
+      <th>Questions</th>
+      <th>Delete Question</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @querys.each do |query| %>
+        <tr>
+          <td><%= query.question %></td>
+          <td><%= link_to "Delete",query, method: :delete,data: { confirm: "Really delete this question?" }, class: "btn btn-danger" %></td>
+        </tr>
+    <% end %>
+
+    </tbody>
+  </table>
+
+
+<%end %>

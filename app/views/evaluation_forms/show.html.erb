@@ -1,38 +1,86 @@
+<% if user_signed_in? && current_user.role == "HR" %>
 
-<h1>Review Forms</h1>
-<table class="table table-striped table-hover">
-  <thead class="thead-dark ">
-  <tr>
-    <th>Answer 1</th>
-    <th>Answer 2</th>
-    <th>Answer 3</th>
-    <th>Answer 4</th>
-    <th>Answer 5</th>
-    <th>Answer 6</th>
-    <th>Answer 7</th>
-    <th>Answer 8</th>
-    <th>Answer 9</th>
-    <th>Answer 10</th>
-    <th>Submit By</th>
-    <th>Comment</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td><%= @evaluation_form.answer1 %></td>
-    <td><%= @evaluation_form.answer2 %></td>
-    <td><%= @evaluation_form.answer3 %></td>
-    <td><%= @evaluation_form.answer4 %></td>
-    <td><%= @evaluation_form.answer5 %></td>
-    <td><%= @evaluation_form.answer6 %></td>
-    <td><%= @evaluation_form.answer7 %></td>
-    <td><%= @evaluation_form.answer8 %></td>
-    <td><%= @evaluation_form.answer9 %></td>
-    <td><%= @evaluation_form.answer10 %></td>
-    <td><%= @evaluation_form.submit_by %></td>
-    <td><%= @evaluation_form.comment %></td>
-  </tr>
-  </tbody>
-</table>
+  <% @findForm = EvaluationForm.find_by_id(params[:id]) %>
+  <% @findUser = User.find_by_name(@findForm.submit_by) %><br>
 
-<%= link_to 'Back',  evaluation_forms_index_path, class:"nav-link" %>
+  <% if @findUser.role == "HR" %>
+
+    <h1>Review Forms</h1>
+    <table class="table table-striped table-hover">
+      <thead class="thead-dark ">
+      <tr>
+        <th>Comment</th>
+        <th>Submit By</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= @findForm.comment %></td>
+        <td><%= @findForm.submit_by %></td>
+
+      </tr>
+      </tbody>
+    </table>
+
+  <%else %>
+    <h1>Review Forms</h1>
+    <table class="table table-striped table-hover">
+      <thead class="thead-dark ">
+      <tr>
+        <% @question_array.each do |question| %>
+          <th><%= question %></th>
+        <% end %>
+        <th>Score</th>
+
+        <th>Submit By</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <%  answers = @evaluation_form.responses.split(",") %>
+        <% answers.each do |answer| %>
+          <td><%= answer %></td>
+        <% end %>
+        <td><%= @evaluation_form.score %></td>
+        <td><%= @evaluation_form.submit_by %></td>
+        <td><%= @evaluation_form.comment %></td>
+
+      </tr>
+      </tbody>
+    </table>
+  <%end %>
+
+
+  <%= link_to 'Back',  evaluation_forms_index_path, class:"nav-link" %>
+
+
+<% else %>
+  <!--Employye/Manager form-->
+  <table class="table table-striped table-hover">
+    <thead class="thead-dark ">
+    <tr>
+    <tr>
+      <% @question_array.each do |question| %>
+        <th><%= question %></th>
+      <% end %>
+      <th>Score</th>
+    </tr>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @formEmp = EvaluationForm.find_by_id(params[:id])%>
+    <h3>Employee form</h3>
+    <tr>
+      <%  answers = @formEmp.responses.split(",") %>
+      <% answers.each do |answer| %>
+        <td><%= answer %></td>
+      <% end %>
+      <td><%= @formEmp.score %></td>
+    </tr>
+
+    </tbody>
+  </table>
+
+<%end %>
