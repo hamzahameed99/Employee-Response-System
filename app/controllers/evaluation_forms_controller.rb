@@ -11,20 +11,16 @@ class EvaluationFormsController < ApplicationController
 
   def new
     @question_array = Query.pluck(:question)
-
     @evaluation_form = EvaluationForm.new
     @user = current_user
   end
 
   def create
-
     @question_array = Query.pluck(:question)
     final_answer = ""
     @question_array.each_with_index do |q,i|
       final_answer += String(params[:evaluation_form]["answer-#{i}"]) + ","
     end
-
-
 
     if current_user.role != "HR"
       total = 0

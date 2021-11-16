@@ -95,11 +95,6 @@
     <%end %>
 
 
-<!--    <div class="field form-group">-->
-      <%#= f.label "Specific areas of needed improvement and goals set for next review:" %>
-      <%#= f.select(:answer10, [['1 - Unsatisfactory',1],['2 - Need Improvement',2],['3 - Average',3],['4 - Good',4],['5 - Excellent',5]],{} ,{class:"form-select form-control"})%>
-<!--    </div><br>-->
-
     <div class="field form-group">
       <%= f.text_field :submit_by, value: current_user.name, class:"form-control", type: "hidden"%>
     </div><br>
