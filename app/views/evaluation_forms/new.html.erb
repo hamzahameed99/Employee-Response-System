@@ -27,6 +27,8 @@
 
       </tbody>
     </table>
+
+
     <!--Manager-->
 
 
@@ -85,13 +87,11 @@
 <div class="container">
   <br><br>
   <h2>Fill out the form</h2>
-
   <%= form_with model: @evaluation_form, url: evaluation_forms_path, method: :post, local: true   do |f|%>
 
     <% @question_array.each_with_index do |question,index| %>
-      <%= f.label :question ,value: question%><br>
+      <%= f.label :question ,value: question %><br>
       <%= f.select(:"answer-#{index}", [['1 - Unsatisfactory',1],['2 - Need Improvement',2],['3 - Average',3],['4 - Good',4],['5 - Excellent',5]],{} ,{class:"form-select form-control"})%>
-
     <%end %>
 
 

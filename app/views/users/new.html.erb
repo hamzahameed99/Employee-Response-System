@@ -2,9 +2,36 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
+
+<%#= form_with(model: friend, local: true) do |form| %>
+  <%# if friend.errors.any? %>
+<!--    <div id="error_explanation">-->
+<!--      <h2><%#= pluralize(friend.errors.count, "error") %> prohibited this friend from being saved:</h2>-->
+
+<!--      <ul>-->
+        <%# friend.errors.full_messages.each do |message| %>
+<!--          <li><%#= message %></li>-->
+        <%# end %>
+<!--      </ul>-->
+<!--    </div>-->
+  <%# end %>
+
+<%#end %>
 <div class="container">
   <div class="row mgTp">
     <%= form_with model: @user, url: signup_path do |f| %>
+
+      <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
       <h3 class="title">Create new user</h3>
       <hr class="divisor">
@@ -35,6 +62,11 @@
         <%= f.label :"Assign manager" %><br/>
         <%= f.collection_select :manager_id, User.where(role: "Manager"), :id, :name, prompt: true %>
       </div>
+
+      <div class="field">
+        <%= f.text_field :status, value: "Pending", hidden: true %>
+      </div>
+
       <div class="field form-group">
         <%= f.label :password %>
         <% if @minimum_password_length %>

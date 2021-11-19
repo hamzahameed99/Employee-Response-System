@@ -32,6 +32,7 @@ class EvaluationFormsController < ApplicationController
     @user = current_user
 
     @evaluation_form = EvaluationForm.new(user_params.merge(responses: final_answer, score: total))
+
     if @evaluation_form.save
       if current_user.role == "Employee"
         current_manager = User.find(current_user.manager_id)
